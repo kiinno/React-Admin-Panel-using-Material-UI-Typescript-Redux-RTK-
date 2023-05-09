@@ -1,26 +1,21 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { themeSettings } from "./theme";
+import { ThemeProvider } from "@emotion/react";
+import { RouterProvider } from "react-router-dom";
+import routerMap from "./router";
+import { CssBaseline, createTheme } from "@mui/material";
+import { useSelector } from "react-redux";
 
-function App() {
+const App: React.FC = () => {
+  const system = useSelector((state: any) => state.System);
+  const theme = createTheme(themeSettings(system.theme));
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <RouterProvider router={routerMap} />
+    </ThemeProvider>
   );
-}
+};
 
 export default App;
